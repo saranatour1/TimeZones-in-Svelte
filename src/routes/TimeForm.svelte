@@ -1,10 +1,15 @@
 <script>
 // @ts-nocheck
 
+	import { onMount } from "svelte";
+
+// @ts-nocheck
+
 	import Selection from "./Selection.svelte";
   import { timeZoneSelect } from './store.ts'
 
-  let countries = Intl.supportedValuesOf('timeZone');
+  const countries = Intl.supportedValuesOf('timeZone');
+	// console.log(countries)
 
   // @ts-ignore
   /**
@@ -43,6 +48,16 @@ const clearInput = () => {
 	searchInput.focus();
 }
 
+$: timeZones ={};
+  timeZoneSelect.subscribe((oldVal) => timeZones = oldVal);
+
+	// I woking here
+// clear the objects 
+// const clearTimeZones = () =>{
+// 	if(timeZones.length === 2){
+// 		timeZoneSelect.set({});
+// 	}
+// }
 
 // @ts-ignore
 const setInputVal = (countryName) => {
@@ -56,9 +71,35 @@ const setInputVal = (countryName) => {
 	document.querySelector('#country-input').focus();
 }	
 
+
+
 // @ts-ignore
+
+
+
+const checkForTime = (input) => {
+  if (Object.keys(timeZones).length === 0) {
+    timeZones['timeZone1'] = input;
+    timeZoneSelect.update(oldVal => {
+      oldVal.timeZone1 = input;
+      return oldVal;
+    });
+  } else if (!timeZones['timeZone2']) {
+    timeZones['timeZone2'] = input;
+		console.log(timeZones , 'here')
+    timeZoneSelect.update(oldVal => {
+      oldVal.timeZone2 = input;
+      return oldVal;
+    });
+  }
+};
+
+
+
+$:console.log(timeZones, 'i am here')
 const submitValue = () => {
-  timeZoneSelect.set(inputValue);
+	checkForTime(inputValue);
+  // timeZoneSelect.update((oldVal) => oldVal);
 	if (inputValue) {
 		console.log(`${inputValue} is submitted!`);
 		setTimeout(clearInput, 1000);
@@ -111,12 +152,8 @@ const navigateList = (e) => {
 	}
 }
 
-
-
-
-
-
 </script>
+
   <svelte:window on:keydown={navigateList} />
 <section class="mt-5">
 

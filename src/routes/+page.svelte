@@ -1,10 +1,7 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import TimeCard from './TimeCard.svelte';
 	import TimeForm from './TimeForm.svelte';
-	
+	import UserAddedCard from './UserAddedCard.svelte';
 </script>
 
 <svelte:head>
@@ -15,6 +12,8 @@
 <section>	
 	<TimeCard />
 	<TimeForm />
+	<UserAddedCard />
+
 </section>
 
 <style>
