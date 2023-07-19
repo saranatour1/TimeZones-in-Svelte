@@ -3,6 +3,7 @@
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import TimeCard from './TimeCard.svelte';
+	import TimeForm from './TimeForm.svelte';
 	
 </script>
 
@@ -11,8 +12,9 @@
 	<meta name="description" content="Time Zones Comparizon Application" />
 </svelte:head>
 
-<section>
+<section>	
 	<TimeCard />
+	<TimeForm />
 </section>
 
 <style>
