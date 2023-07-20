@@ -62,7 +62,7 @@ $: timeZones ={};
 // @ts-ignore
 const setInputVal = (countryName) => {
   // timeZoneSelect.set(inputValue);
-  timeZoneSelect.subscribe(oldVal =>console.log( 'this is our old val', oldVal))
+  // timeZoneSelect.subscribe(oldVal =>console.log( 'this is our old val', oldVal))
   // console.log('this is old value', )
 	inputValue = removeBold(countryName);
 	filteredCountries = [];
@@ -78,7 +78,7 @@ const setInputVal = (countryName) => {
 
 
 const checkForTime = (input) => {
-  if (Object.keys(timeZones).length === 0) {
+  if (Object.keys(timeZones).length === 0 || timeZones['timeZone1'] ==='') {
     timeZones['timeZone1'] = input;
     timeZoneSelect.update(oldVal => {
       oldVal.timeZone1 = input;
@@ -86,7 +86,7 @@ const checkForTime = (input) => {
     });
   } else if (!timeZones['timeZone2']) {
     timeZones['timeZone2'] = input;
-		console.log(timeZones , 'here')
+		// console.log(timeZones , 'here')
     timeZoneSelect.update(oldVal => {
       oldVal.timeZone2 = input;
       return oldVal;
@@ -96,7 +96,7 @@ const checkForTime = (input) => {
 
 
 
-$:console.log(timeZones, 'i am here')
+// $:console.log(timeZones, 'i am here')
 const submitValue = () => {
 	checkForTime(inputValue);
   // timeZoneSelect.update((oldVal) => oldVal);
