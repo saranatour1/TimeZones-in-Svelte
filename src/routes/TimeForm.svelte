@@ -74,6 +74,33 @@ const setInputVal = (countryName) => {
 
 
 // @ts-ignore
+const timeZoneDifference = async (timeZone1, timeZone2) => {
+  const time = new Date();
+  const firstTime = new Date(time.toLocaleString('en-US', { timeZone: timeZone1 })).getTime();
+  const secondTime = new Date(time.toLocaleString('en-US', { timeZone: timeZone2 })).getTime();
+
+  const timeDiffMilliseconds = firstTime - secondTime;
+  const timeDiffMinutes = Math.abs(timeDiffMilliseconds) / (1000 * 60);
+  
+  const hours = Math.floor(timeDiffMinutes / 60);
+  const minutes = Math.floor(timeDiffMinutes % 60);
+
+  const timeDiff = {
+    hours: hours,
+    minutes: minutes
+  };
+
+  if (timeDiffMilliseconds > 0) {
+    console.log(`Time zone ${timeZone1} is ahead of ${timeZone2} by ${hours} hours and ${minutes} minutes.`);
+  } else if (timeDiffMilliseconds < 0) {
+    console.log(`Time zone ${timeZone2} is ahead of ${timeZone1} by ${hours} hours and ${minutes} minutes.`);
+  } else {
+    console.log('The two time zones are in sync.');
+  }
+};
+
+
+
 
 
 
@@ -87,6 +114,7 @@ const checkForTime = (input) => {
   } else if (!timeZones['timeZone2']) {
     timeZones['timeZone2'] = input;
 		// console.log(timeZones , 'here')
+		timeZoneDifference(timeZones.timeZone1, timeZones.timeZone2);
     timeZoneSelect.update(oldVal => {
       oldVal.timeZone2 = input;
       return oldVal;
