@@ -22,10 +22,10 @@
 	let storageArr = [];
 	if (inputValue) {
 		countries.forEach(country => {
-			 if (country.toLowerCase().includes(inputValue.toLowerCase())) {
+			if (country.toLowerCase().includes(inputValue.toLowerCase())) {
 				 // @ts-ignore
-				 storageArr = [...storageArr, makeMatchBold(country)];
-			 }
+				storageArr = [...storageArr, makeMatchBold(country)];
+			}
 		});
 	}
 	// @ts-ignore
@@ -44,26 +44,14 @@ $: if (!inputValue) {
 const clearInput = () => {
 	inputValue = "";	
 	// @ts-ignore
-  // timeZoneSelect.set('');
 	searchInput.focus();
 }
 
 $: timeZones ={};
   timeZoneSelect.subscribe((oldVal) => timeZones = oldVal);
 
-	// I woking here
-// clear the objects 
-// const clearTimeZones = () =>{
-// 	if(timeZones.length === 2){
-// 		timeZoneSelect.set({});
-// 	}
-// }
-
 // @ts-ignore
 const setInputVal = (countryName) => {
-  // timeZoneSelect.set(inputValue);
-  // timeZoneSelect.subscribe(oldVal =>console.log( 'this is our old val', oldVal))
-  // console.log('this is old value', )
 	inputValue = removeBold(countryName);
 	filteredCountries = [];
 	hiLiteIndex = null;
@@ -101,9 +89,6 @@ const timeZoneDifference = async (timeZone1, timeZone2) => {
 
 
 
-
-
-
 const checkForTime = (input) => {
   if (Object.keys(timeZones).length === 0 || timeZones['timeZone1'] ==='') {
     timeZones['timeZone1'] = input;
@@ -128,7 +113,7 @@ const checkForTime = (input) => {
 const submitValue = () => {
 	checkForTime(inputValue);
   // timeZoneSelect.update((oldVal) => oldVal);
-	if (inputValue) {
+	if (inputValue.trim()) {
 		console.log(`${inputValue} is submitted!`);
 		setTimeout(clearInput, 1000);
 	} else {
@@ -198,9 +183,6 @@ const navigateList = (e) => {
 		</ul>
 	{/if}
 
-
-
-
 </section>
 
 <style>
@@ -212,12 +194,27 @@ const navigateList = (e) => {
 	margin: 0;
 }
 
+/* Button styles */
 input[type=submit] {
-  background-color: DodgerBlue;
+  background-color: plum;
   color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-input[type=submit]:hover{
-  cursor: pointer;
+input[type=submit]:hover {
+  background-color: #4db6ac; 
 }
+
+
+input[type=submit]:focus,
+input[type=submit]:active {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(77, 182, 172, 0.7); 
+}
+
 </style>

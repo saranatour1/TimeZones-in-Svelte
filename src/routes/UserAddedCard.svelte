@@ -4,12 +4,12 @@
   import { timeZoneSelect ,timeZoneCards } from './store';
 	import Card from './Card.svelte';
 
-  $: timeZones = {};
+  $: timeZones = {timeZone1: '' , timeZone2 : ''};
 timeZoneSelect.subscribe((oldVal) => timeZones = oldVal);
 
 /**
- * @type {{}[]}
- */
+	 * @type {any[]}
+	 */
 let timeZoneC = [];
 timeZoneCards.subscribe((oldVal) => timeZoneC = oldVal);
 
