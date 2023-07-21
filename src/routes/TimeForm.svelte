@@ -70,22 +70,37 @@ const timeZoneDifference = async (timeZone1, timeZone2) => {
   const timeDiffMilliseconds = firstTime - secondTime;
   const timeDiffMinutes = Math.abs(timeDiffMilliseconds) / (1000 * 60);
   
+
+
   const hours = Math.floor(timeDiffMinutes / 60);
+	const days = Math.floor(hours % 24);
   const minutes = Math.floor(timeDiffMinutes % 60);
 
   const timeDiff = {
     hours: hours,
-    minutes: minutes
+    minutes: minutes,
+		days: days,
   };
+	
+	console.log('Hours, and days', hours , days)
 
-  if (timeDiffMilliseconds > 0) {
-    console.log(`Time zone ${timeZone1} is ahead of ${timeZone2} by ${hours} hours and ${minutes} minutes.`);
-  } else if (timeDiffMilliseconds < 0) {
-    console.log(`Time zone ${timeZone2} is ahead of ${timeZone1} by ${hours} hours and ${minutes} minutes.`);
-  } else {
-    console.log('The two time zones are in sync.');
-  }
-};
+	let msg; 
+	if (timeDiffMilliseconds > 0) {
+			msg = `Time zone ${timeZone1} is ahead of ${timeZone2} by ${hours} hours and ${minutes} minutes.`; 
+		} else if (timeDiffMilliseconds < 0) {
+			msg = `Time zone ${timeZone1} is ahead of ${timeZone2} by ${hours} hours and ${minutes} minutes.`; 
+		} else {
+			msg = `The two time zones are in sync.`; 
+		}
+
+		timeZoneSelect.update((oldVal) => {
+			oldVal.timeDif = msg;
+		return oldVal});
+
+		}
+
+
+
 
 
 

@@ -37,7 +37,7 @@ onMount(() => {
   {timeZone}
 </div> -->
  {#if timeZone.length > 0}
-  <div class="bg-white rounded-lg shadow-md p-6 mt-10">
+  <div class="bg-white rounded-lg shadow-md p-6 ">
       <div class="text-3xl font-bold mb-4">
         {timeOf}
       </div> 
