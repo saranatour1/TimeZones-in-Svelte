@@ -34,20 +34,22 @@
 
  {#if timeZone.length > 0}
   <div class="bg-white rounded-lg shadow-md p-6 ">
-      <div class="text-3xl font-bold mb-4">
-        {timeOf}
-      </div> 
+    <div class="text-3xl font-bold mb-4">
+      {timeOf}
+    </div> 
     <div class="text-lg text-gray-500 mb-4"> 
       <span class="font-bold">
         {dateOf}
       </span>       
       <span class="text-sm">(GMT 
-      {#if timeZoneOffset.length >0 }
-      +
+        {#if timeZoneOffset.length >0 }
+          +
         {:else}
-      -
-      {/if}
-      {timeZoneOffset})</span>  
+          -
+        {/if}
+        {timeZoneOffset})
+      </span>  
+    </div> 
+    <p class="text-gray-600">Time in {timeZone}</p> 
   </div> 
-  <div class="text-gray-600">Time in {timeZone}</div> </div> 
   {/if} 
