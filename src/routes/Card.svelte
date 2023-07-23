@@ -1,27 +1,26 @@
-<script>
+<script lang="ts">
 	import { onMount } from "svelte";
 
-  export let timeZone; 
+  export let timeZone:string; 
 
-const options = { month: 'long', day: 'numeric', year: 'numeric' };
-$: timeNow = new Date();
-$: dateTimeNow = timeZone.length > 0 ? timeNow.toLocaleString('en-US', { timeZone: timeZone }) : '';
-$: timeOf = timeZone.length > 0 ? timeNow.toLocaleTimeString('en-US', { timeZone: timeZone }) : '';
-$: dateOf = timeZone.length > 0 ? timeNow.toLocaleDateString('en-US', { ...options, timeZone: timeZone }) : '';
-let timeZoneOffset;
+  $: timeNow = new Date();
+  $: dateTimeNow = timeZone.length > 0 ? timeNow.toLocaleString('en-US', { timeZone: timeZone }) : '';
+  $: timeOf = timeZone.length > 0 ? timeNow.toLocaleTimeString('en-US', { timeZone: timeZone }) : '';
+  $: dateOf = timeZone.length > 0 ? timeNow.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: timeZone }) : '';
+  let timeZoneOffset:any;
 // $: console.log(timeZoneOffset);
 
-for (const locale of ["ja", "en", "fr"]) {
-  timeZoneOffset = Intl?.DateTimeFormat(locale, {
-    timeZoneName: "short",
-    timeZone: timeZone,
-  })
-    .formatToParts()
-    .find((i) => i.type === "timeZoneName")?.value;
-  console.log(timeZoneOffset);
-}
+  for (const locale of ["ja", "en", "fr"]) {
+    timeZoneOffset = Intl?.DateTimeFormat(locale, {
+      timeZoneName: "short",
+      timeZone: timeZone,
+    })
+      .formatToParts()
+      .find((i) => i.type === "timeZoneName")?.value;
+    console.log(timeZoneOffset);
+  }
 
-onMount(() => {
+  onMount(() => {
 		const interval = setInterval(() => {
 			timeNow = new Date();
 		}, 1000);
@@ -32,10 +31,7 @@ onMount(() => {
 	});
 
 </script>
-<!-- 
-<div>
-  {timeZone}
-</div> -->
+
  {#if timeZone.length > 0}
   <div class="bg-white rounded-lg shadow-md p-6 ">
       <div class="text-3xl font-bold mb-4">
@@ -53,4 +49,5 @@ onMount(() => {
       {/if}
       {timeZoneOffset})</span>  
   </div> 
-  <div class="text-gray-600">Time in {timeZone}</div> </div> {/if} 
+  <div class="text-gray-600">Time in {timeZone}</div> </div> 
+  {/if} 
