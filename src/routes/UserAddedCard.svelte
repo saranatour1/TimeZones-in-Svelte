@@ -12,7 +12,7 @@
     timeDif: string;
   }
 
-  $: cards = [];
+  let cards:TimeZoneCard[] = [];
   $: {
     (async () => {
       if (browser) {
@@ -27,13 +27,21 @@
 
   $: countNonEmptyItems = Object.values(timeZones).filter(item => item !== '').length;
 
-  const test = async () => {
+  const test =  () => {
+
     if (browser) {
-      localStorage.setItem('cards', JSON.stringify(timeZoneC));
+      // let test = localStorage.getItem('cards'); 
+      // cards = JSON.parse(test!) ?? [];
+      if(cards.length > 0){
+        localStorage.setItem('cards', JSON.stringify(cards.concat(timeZoneC)));
+      }else{
+        localStorage.setItem('cards', JSON.stringify(timeZoneC));
+      }  
+
     }
   }
-$: console.log(cards)
-  $: {
+// $: console.log(cards)
+   $: {
     if (countNonEmptyItems === 3) {
       let timeZonesCopy: TimeZoneCard = { ...timeZones };
       if (!timeZoneC.some(item => JSON.stringify(item) === JSON.stringify(timeZonesCopy))) {
@@ -45,25 +53,37 @@ $: console.log(cards)
           return oldVal;
         });
       }
+      test();
       timeZoneSelect.set({ timeZone1: '', timeZone2: '', timeDif: '' });
     }
-    test();
-    console.log(cards);
+    console.log( 'these are the cards within the same local storage group',cards);
   }
 
-  $: console.log('timeZones array', timeZoneC);
+//   const timeTest = (arr1: TimeZoneCard[], arr2: TimeZoneCard[]) => {
+//   // Test 1
+//   console.time('first');
+//   console.log('this is the first way of merging two arrays', [...arr1, ...arr2]);
+//   console.timeEnd('first');
+
+//   // Test 2
+//   console.time('second');
+//   console.log('this is the second way of merging two arrays', arr1.concat(arr2));
+//   console.timeEnd('second');
+//   // Second wins by 1ms 
+// }
+
+
+// // Example usage
+// timeTest(cards, timeZoneC);
+
+
+  $: console.log('timeZones array', timeZoneC , cards , 'Merged', [...cards, ...timeZoneC]);
   $: console.log('timeZones object', timeZones);
 </script>
 
 
-{#if cards}
-  {#each cards as card}
-    {#each card as item,index }
-      {item[index]}
-    {/each}
-  {/each}
-{/if}
-{#each timeZoneC as timeZone}
+
+{#each cards as timeZone}
   {#if timeZone.timeDif}
     <p class="text-center my-4">
       {timeZone.timeDif}
