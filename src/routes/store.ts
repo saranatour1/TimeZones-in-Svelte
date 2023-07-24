@@ -1,4 +1,6 @@
 import { writable, type Writable } from 'svelte/store';
+
+
 interface TimeZoneCard {
   timeZone1: string;
   timeZone2: string;
@@ -11,5 +13,4 @@ interface TimeZoneCard {
 export const timeZoneSelect = writable({timeZone1:'' , timeZone2:'' , timeDif: '' });
 
 export const timeZoneCards:Writable<TimeZoneCard[]> = writable([]);
-
 

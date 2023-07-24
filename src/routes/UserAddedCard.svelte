@@ -11,44 +11,45 @@
     timeZone2: string;
     timeDif: string;
   }
+  
+  let timeZoneC: TimeZoneCard[] = [];
+  timeZoneCards.subscribe((oldVal) => timeZoneC = oldVal);
 
   let cards:TimeZoneCard[] = [];
-  $: {
+
+    console.log('Did I over write it in line 17?');
     (async () => {
       if (browser) {
         cards = await JSON.parse(localStorage.getItem('cards')!) || [];
       }
+      // timeZoneC = cards
     })();
-  }
 
-  let timeZoneC: TimeZoneCard[] = [];
-  timeZoneCards.subscribe((oldVal) => timeZoneC = oldVal);
-  
+
+
+  $: cards.length > 0 && Object.entries(timeZoneC).length ===0 ? timeZoneCards.update(oldVal => oldVal = cards) : timeZoneC = timeZoneC; 
+
 
   $: countNonEmptyItems = Object.values(timeZones).filter(item => item !== '').length;
 
   const test =  () => {
-
+    console.log('Did I over write it in line 41?');
     if (browser) {
-      // let test = localStorage.getItem('cards'); 
-      // cards = JSON.parse(test!) ?? [];
-      if(cards.length > 0){
-        localStorage.setItem('cards', JSON.stringify(cards.concat(timeZoneC)));
-      }else{
-        localStorage.setItem('cards', JSON.stringify(timeZoneC));
-      }  
-
+      if(Object.entries(timeZoneC).length > 0)
+      localStorage.setItem('cards' , JSON.stringify(timeZoneC))
+    }else{
+      localStorage.setItem('cards',JSON.stringify(timeZoneC.concat(cards)))
     }
   }
-// $: console.log(cards)
+
    $: {
     if (countNonEmptyItems === 3) {
       let timeZonesCopy: TimeZoneCard = { ...timeZones };
       if (!timeZoneC.some(item => JSON.stringify(item) === JSON.stringify(timeZonesCopy))) {
-        timeZoneC.push(timeZonesCopy);
+        timeZoneC.unshift(timeZonesCopy);
         timeZoneCards.update((oldVal) => {
           if (!oldVal.some(item => JSON.stringify(item) === JSON.stringify(timeZonesCopy))) {
-            oldVal.push(timeZonesCopy);
+            oldVal.unshift(timeZonesCopy);
           }
           return oldVal;
         });
@@ -81,9 +82,12 @@
   $: console.log('timeZones object', timeZones);
 </script>
 
+{#if cards.length === 0 || timeZoneC.length ===0}
+    <p class=" text-center mt-5"> Loading ..</p>
+{/if}
 
 
-{#each cards as timeZone}
+{#each timeZoneC as timeZone}
   {#if timeZone.timeDif}
     <p class="text-center my-4">
       {timeZone.timeDif}
