@@ -1,3 +1,9 @@
+# Time Zones With Svelte  
+First time with Svelte!   
+![Screen Shot 2023-07-24 at 18 49 56](https://github.com/saranatour1/TimeZones-in-Svelte/assets/77834808/5ad9f177-e6da-4f6e-97dc-a4aff7a6f4d2)
+
+
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
@@ -36,6 +42,8 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+
 
 ### issues:
 - offset for a differnt time zone , [link](https://stackoverflow.com/questions/20712419/get-utc-offset-from-timezone-in-javascript)
