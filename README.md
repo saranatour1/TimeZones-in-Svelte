@@ -1,4 +1,4 @@
-# Time Zones With Svelte  
+# Time Zones (Real Time) With Svelte  
 First time with Svelte!   
 ![Screen Shot 2023-07-24 at 18 49 56](https://github.com/saranatour1/TimeZones-in-Svelte/assets/77834808/5ad9f177-e6da-4f6e-97dc-a4aff7a6f4d2)
 
